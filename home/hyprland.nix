@@ -3,7 +3,7 @@
 {
   wayland.windowManager.hyprland = {
     enable          = true;
-    package         = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    package         = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     xwayland.enable = true;
     systemd.enable  = true;
 
@@ -131,96 +131,86 @@
         "blur, waybar"
       ];
 
-      "$mod"      = "SUPER";
-      "$terminal" = "ghostty";
-      "$browser"  = "google-chrome-stable";
-      "$editor"   = "zed";
-      "$launcher" = "fuzzel";
-
       bind = [
-        "$mod, Return, exec, $terminal"
-        "$mod, Q, killactive"
-        "$mod SHIFT, M, exit"
-        "$mod, V, togglefloating"
-        "$mod, F, fullscreen, 1"
-        "$mod SHIFT, F, fullscreen"
-        "$mod, P, pseudo"
-        "$mod, J, togglesplit"
+        "SUPER, Return, exec, ghostty"
+        "SUPER, Q, killactive"
+        "SUPER SHIFT, M, exit"
+        "SUPER, V, togglefloating"
+        "SUPER, F, fullscreen, 1"
+        "SUPER SHIFT, F, fullscreen"
+        "SUPER, P, pseudo"
+        "SUPER, X, layoutmsg, togglesplit"
 
-        "$mod, Space, exec, $launcher"
-        "$mod, B, exec, $browser"
-        "$mod SHIFT, E, exec, $editor"
+        "SUPER, Space, exec, fuzzel"
+        "SUPER, B, exec, google-chrome-stable"
+        "SUPER SHIFT, E, exec, zed"
 
-        "$mod, C, exec, cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"
+        "SUPER, C, exec, cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"
 
         ", Print, exec, grimblast copy area"
         "SHIFT, Print, exec, grimblast save area"
-        "$mod, Print, exec, grimblast copy screen"
+        "SUPER, Print, exec, grimblast copy screen"
 
-        "$mod, h, movefocus, l"
-        "$mod, l, movefocus, r"
-        "$mod, k, movefocus, u"
-        "$mod, j, movefocus, d"
-        "$mod, left,  movefocus, l"
-        "$mod, right, movefocus, r"
-        "$mod, up,    movefocus, u"
-        "$mod, down,  movefocus, d"
+        # Focus — arrow keys only (hjkl are workspace switches)
+        "SUPER, left,  movefocus, l"
+        "SUPER, right, movefocus, r"
+        "SUPER, up,    movefocus, u"
+        "SUPER, down,  movefocus, d"
 
-        "$mod SHIFT, h, movewindow, l"
-        "$mod SHIFT, l, movewindow, r"
-        "$mod SHIFT, k, movewindow, u"
-        "$mod SHIFT, j, movewindow, d"
+        # Move window — SHIFT + arrow keys
+        "SUPER SHIFT, left,  movewindow, l"
+        "SUPER SHIFT, right, movewindow, r"
+        "SUPER SHIFT, up,    movewindow, u"
+        "SUPER SHIFT, down,  movewindow, d"
 
-        "$mod, 1, workspace, 1"
-        "$mod, 2, workspace, 2"
-        "$mod, 3, workspace, 3"
-        "$mod, 4, workspace, 4"
-        "$mod, 5, workspace, 5"
-        "$mod, 6, workspace, 6"
-        "$mod, 7, workspace, 7"
-        "$mod, 8, workspace, 8"
-        "$mod, 9, workspace, 9"
-        "$mod, 0, workspace, 10"
+        # Workspaces on home row
+        "SUPER, A, workspace, 1"
+        "SUPER, S, workspace, 2"
+        "SUPER, D, workspace, 3"
+        "SUPER, F, workspace, 4"
+        "SUPER, G, workspace, 5"
+        "SUPER, H, workspace, 6"
+        "SUPER, J, workspace, 7"
+        "SUPER, K, workspace, 8"
+        "SUPER, L, workspace, 9"
 
-        "$mod SHIFT, 1, movetoworkspace, 1"
-        "$mod SHIFT, 2, movetoworkspace, 2"
-        "$mod SHIFT, 3, movetoworkspace, 3"
-        "$mod SHIFT, 4, movetoworkspace, 4"
-        "$mod SHIFT, 5, movetoworkspace, 5"
-        "$mod SHIFT, 6, movetoworkspace, 6"
-        "$mod SHIFT, 7, movetoworkspace, 7"
-        "$mod SHIFT, 8, movetoworkspace, 8"
-        "$mod SHIFT, 9, movetoworkspace, 9"
-        "$mod SHIFT, 0, movetoworkspace, 10"
+        "SUPER SHIFT, A, movetoworkspace, 1"
+        "SUPER SHIFT, S, movetoworkspace, 2"
+        "SUPER SHIFT, D, movetoworkspace, 3"
+        "SUPER SHIFT, F, movetoworkspace, 4"
+        "SUPER SHIFT, G, movetoworkspace, 5"
+        "SUPER SHIFT, H, movetoworkspace, 6"
+        "SUPER SHIFT, J, movetoworkspace, 7"
+        "SUPER SHIFT, K, movetoworkspace, 8"
+        "SUPER SHIFT, L, movetoworkspace, 9"
 
-        "$mod, S, togglespecialworkspace, magic"
-        "$mod SHIFT, S, movetoworkspace, special:magic"
+        # Scratchpad
+        "SUPER, Z, togglespecialworkspace, magic"
+        "SUPER SHIFT, Z, movetoworkspace, special:magic"
 
-        "$mod, mouse_down, workspace, e+1"
-        "$mod, mouse_up,   workspace, e-1"
+        "SUPER, mouse_down, workspace, e+1"
+        "SUPER, mouse_up,   workspace, e-1"
 
-        "$mod, N, exec, makoctl dismiss"
-        "$mod SHIFT, N, exec, makoctl dismiss --all"
+        "SUPER, N, exec, makoctl dismiss"
+        "SUPER SHIFT, N, exec, makoctl dismiss --all"
 
-        "$mod SHIFT, L, exec, swaylock"
+        "SUPER, Escape, exec, swaylock"
 
-        # Disable standalone PageUp/PageDown — they sit next to the arrow keys
-        # on the X1 and cause accidental presses. Remove these lines if you ever
-        # want them back.
+        # Disable standalone PageUp/PageDown — awkwardly placed next to arrows on X1
         ", Prior, exec, true"
         ", Next, exec, true"
       ];
 
       bindm = [
-        "$mod, mouse:272, movewindow"
-        "$mod, mouse:273, resizewindow"
+        "SUPER, mouse:272, movewindow"
+        "SUPER, mouse:273, resizewindow"
       ];
 
       binde = [
-        "$mod ALT, l, resizeactive,  30 0"
-        "$mod ALT, h, resizeactive, -30 0"
-        "$mod ALT, k, resizeactive,  0 -30"
-        "$mod ALT, j, resizeactive,  0  30"
+        "SUPER ALT, right, resizeactive,  30 0"
+        "SUPER ALT, left,  resizeactive, -30 0"
+        "SUPER ALT, up,    resizeactive,  0 -30"
+        "SUPER ALT, down,  resizeactive,  0  30"
       ];
 
       bindel = [
@@ -272,7 +262,7 @@
         };
 
         clock = {
-          timezone       = "Europe/Stockholm"; # REPLACE
+          timezone       = "Europe/Stockholm";
           format         = "{:%H:%M}";
           format-alt     = "{:%A, %B %d  %H:%M}";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
@@ -374,12 +364,11 @@
   };
 
   # ── Fuzzel ────────────────────────────────────────────────────────────────────
-  # Colors are set by Stylix; only layout/font settings here.
+  # Colors and font are set by Stylix; only layout settings here.
   programs.fuzzel = {
     enable = true;
     settings = {
       main = {
-        font        = "JetBrainsMono Nerd Font:size=12";
         terminal    = "ghostty";
         width       = 35;
         lines       = 10;
@@ -394,14 +383,13 @@
   };
 
   # ── Mako ─────────────────────────────────────────────────────────────────────
-  # Colors are set by Stylix; only behaviour/font settings here.
+  # Colors and font are set by Stylix; only behaviour settings here.
   services.mako = {
     enable = true;
     settings = {
       border-radius   = 8;
       default-timeout = 5000;
       max-visible     = 5;
-      font            = "JetBrainsMono Nerd Font 11";
       sort            = "-time";
     };
   };

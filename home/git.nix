@@ -2,22 +2,15 @@
 
 {
   programs.git = {
-    enable    = true;
-    userName  = "Christian Larsson";   # adjust if needed
-    userEmail = "christianalarsson@gmail.com";
+    enable = true;
 
-    delta = {
-      enable = true;
-      options = {
-        navigate     = true;
-        dark         = true;
-        line-numbers = true;
-        syntax-theme = "Catppuccin Mocha";
-        side-by-side = false;
+    delta.enable = true;
+
+    settings = {
+      user = {
+        name  = "Christian Larsson";
+        email = "christianalarsson@gmail.com";
       };
-    };
-
-    extraConfig = {
       core = {
         editor   = "zed --wait";
         autocrlf = false;
@@ -46,5 +39,16 @@
       ".env"
       "result"
     ];
+  };
+
+  programs.delta = {
+    enable  = true;
+    options = {
+      navigate     = true;
+      dark         = true;
+      line-numbers = true;
+      syntax-theme = "Catppuccin Mocha";
+      side-by-side = false;
+    };
   };
 }

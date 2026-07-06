@@ -58,7 +58,7 @@
       which-key-nvim
     ];
 
-    extraLuaConfig = ''
+    initLua = ''
       -- Basic options
       vim.opt.number         = true
       vim.opt.relativenumber = true

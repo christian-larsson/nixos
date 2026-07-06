@@ -5,28 +5,9 @@
     enable = true;
 
     plugins = [
-      {
-        name = "bass";
-        src  = pkgs.fetchFromGitHub {
-          owner  = "edc";
-          repo   = "bass";
-          rev    = "2fd3d2157d5271d29b4a9a85f8ccff88f6eb30b2";
-          sha256 = "sha256-fl4/Pgtkojk5AE52wpGDnuLajQxHoVqyphE90IIPYFU=";
-        };
-      }
-      {
-        name = "done";
-        src  = pkgs.fishPlugins.done.src;
-      }
-      {
-        name = "fzf-fish";
-        src  = pkgs.fetchFromGitHub {
-          owner  = "PatrickF1";
-          repo   = "fzf.fish";
-          rev    = "v10.3";
-          sha256 = "sha256-T8KYLA/r/gOKvAivKRoeqIwE2pINB8p4OP0/N68O2Y4=";
-        };
-      }
+      { name = "bass";     src = pkgs.fishPlugins.bass.src; }
+      { name = "done";     src = pkgs.fishPlugins.done.src; }
+      { name = "fzf-fish"; src = pkgs.fishPlugins.fzf-fish.src; }
     ];
 
     shellAliases = {
